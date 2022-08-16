@@ -1,0 +1,14 @@
+spring:
+    activemq:
+        broker-url: "tcp://localhost:61616"
+        user: admin
+        password: admin
+        topic: myTopic
+        queue: myQueue
+
+
+server:
+  port: '8080'
+  error:
+    include-stacktrace: never
+    include-message: always

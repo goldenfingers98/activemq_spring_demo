@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  ms1:
+    container_name: microservice1
+    image: activemq_spring_demo:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+    environment:
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+      - SPRING_ACTIVEMQ_QUEUE=myQueue1
+    depends_on:
+      - activemq
+  ms2:
+    container_name: microservice2
+    image: activemq_spring_demo:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8080
+    environment:
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+      - SPRING_ACTIVEMQ_QUEUE=myQueue2
+    depends_on:
+      - activemq
+  ms3:
+    container_name: microservice3
+    image: activemq_spring_demo:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8083:8080
+    environment:
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+      - SPRING_ACTIVEMQ_QUEUE=myQueue3
+    depends_on:
+      - activemq
+  
+  activemq:
+    container_name: message_broker
+    image: rmohr/activemq:5.14.5
+    ports:
+      - 8161:8161
