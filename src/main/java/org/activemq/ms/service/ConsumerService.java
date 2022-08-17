@@ -10,17 +10,12 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @Service
 public class ConsumerService {
 
     @Autowired
     private Logger logger;
 
-    @Autowired
-    private ObjectMapper mapper;
 
     private String _receive(final Message jsonMessage) throws JMSException{
         String messageData = null;
@@ -34,16 +29,16 @@ public class ConsumerService {
     
 
     @JmsListener(destination = "${spring.activemq.queue}")
-    @SendTo("myQueue2")
+    @SendTo("myNewQueue")
     public String receiveAndForwardMessageFromQueue(final Message jsonMessage) throws JMSException {
         return _receive(jsonMessage);
     }
 
-    @JmsListener(destination = "${spring.activemq.topic}")
-    @SendTo("myNewTopic")
-    public String receiveAndForwardMessageFromTopic(final Message jsonMessage) throws JMSException, JsonProcessingException {
-        return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(_receive(jsonMessage));
-    }
+    // @JmsListener(destination = "${spring.activemq.topic}")
+    // @SendTo("myNewTopic")
+    // public String receiveAndForwardMessageFromTopic(final Message jsonMessage) throws JMSException, JsonProcessingException {
+    //     return mapper.writer().withDefaultPrettyPrinter().writeValueAsString(_receive(jsonMessage));
+    // }
 
 
     @JmsListener(destination = "${spring.activemq.topic}")
