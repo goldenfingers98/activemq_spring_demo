@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.activemq.topic",
+    "type": "java.lang.String",
+    "description": "Topic channel."
+  },
+  {
+    "name": "spring.activemq.queue",
+    "type": "java.lang.String",
+    "description": "Queue channel"
+  }
+]}
